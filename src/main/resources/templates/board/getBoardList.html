@@ -1,0 +1,34 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div align="center">
+		<h1>통합구현 게시판 List</h1>
+		<a th:href="@{/logout}">로그아웃</a> &nbsp;&nbsp;&nbsp;&nbsp;
+		<a th:href="@{/system/adminPage}">게시판관리자</a>
+		<table border=1 th:width="600">
+			<tr>
+				<td>seq</td>
+				<td>번호(내용보기)</td>
+				<td>제목</td>
+				<td>작성자</td>
+				<td>등록일</td>
+				<td>조회수(D)</td>
+			</tr>
+			<tr th:each="board , state : ${boardList}">
+				<td th:text="${board.seq}"></td>
+				<td th:text="${state.count}"></td>
+				<td><a th:href="@{/board/getBoard(seq=${board.seq})}"
+					th:text="${board.title}"></a></td>
+				<td th:text="${board.member.name}"></td>
+				<td th:text="${#dates.format(board.createDate,'yyyy-MM-dd')}"></td>
+				<td th:text="${board.cnt}" th:align="center"></td>
+			</tr>
+		</table>
+		<a th:href="@{/board/insertBoard}">새글등록</a> &nbsp;&nbsp;&nbsp; <a
+			th:href="index.html">처음으로</a>
+	</div>
+</body>
+</html>
